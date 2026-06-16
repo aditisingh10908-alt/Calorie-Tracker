@@ -9,26 +9,23 @@ import { generalLimiter } from './middleware/rateLimiter.middleware';
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 // Security Middlewares
 app.use(helmet());
+
 app.use(cors({
-  origin: '*', // For dev mode, open to all. Change in production.
+  origin: '*', // change to your frontend URL in production
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// Rate Limiting
-app.use(generalLimiter);
-
-// Logger & Parsers
+// Logging + body parsing
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// API Routes
-app.use('/api', apiRoutes);
-
-// Base Health Check
+// Health check (DO NOT rate limit this)
 app.get('/health', (req, res) => {
   res.status(200).json({
     status: 'UP',
@@ -37,17 +34,24 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Global Error Handler
+// Rate limiter ONLY for API routes
+app.use('/api', generalLimiter);
+
+// API routes
+app.use('/api', apiRoutes);
+
+// Global error handler (must be last middleware)
 app.use(errorHandler);
 
-// Start Server if not imported by tests
+// Start server (Railway-safe)
 if (process.env.NODE_ENV !== 'test') {
-  const PORT = config.port;
+  const PORT = Number(config.port || process.env.PORT || 5000);
+
   app.listen(PORT, '0.0.0.0', () => {
-  console.log(
-    `[Server] Running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`
-  );
-});
+    console.log(
+      `[Server] Running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`
+    );
+  });
 }
 
 export default app;
