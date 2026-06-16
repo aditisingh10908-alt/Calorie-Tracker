@@ -43,9 +43,10 @@ app.use(errorHandler);
 // Start Server if not imported by tests
 if (process.env.NODE_ENV !== 'test') {
   const PORT = config.port;
-  app.listen(PORT, () => {
-    console.log(`[Server] Running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-  });
-}
+  app.listen(PORT, '0.0.0.0', () => {
+  console.log(
+    `[Server] Running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`
+  );
+});
 
 export default app;
