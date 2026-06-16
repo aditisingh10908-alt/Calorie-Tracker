@@ -28,17 +28,24 @@ export default function WaterPage() {
   };
 
   const logWater = async (amount: number) => {
-    setLoading(true);
-    try {
-      await WaterService.logWater(amount, new Date().toISOString());
-      toast.success(`Logged ${amount}ml of water`);
-      fetchWater();
-    } catch (error) {
-      toast.error('Failed to log water');
-    } finally {
-      setLoading(false);
-    }
-  };
+  setLoading(true);
+
+  try {
+    const today = new Date();
+    const localDate = `${today.getFullYear()}-${String(
+      today.getMonth() + 1
+    ).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+    await WaterService.logWater(amount, localDate);
+
+    toast.success(`Logged ${amount}ml of water`);
+    await fetchWater();
+  } catch (error) {
+    toast.error('Failed to log water');
+  } finally {
+    setLoading(false);
+  }
+};
 
   const total = summary?.total || 0;
   const percentage = Math.min((total / dailyGoal) * 100, 100);
