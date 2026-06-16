@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #22c55e;
+  --color-primary-dark: #16a34a;
+  --color-accent: #10b981;
+  --color-accent-dark: #059669;
+  --color-bg-light: #f8fafc;
+  --color-bg-dark: #030712;
+  --color-card-light: #ffffff;
+  --color-card-dark: rgba(255, 255, 255, 0.05);
+  --color-text-primary-light: #0f172a;
+  --color-text-primary-dark: #f1f5f9;
+  --color-text-secondary-light: #64748b;
+  --color-text-secondary-dark: #94a3b8;
+  --color-border-light: #e2e8f0;
+  --color-border-dark: rgba(255, 255, 255, 0.1);
+  --gradient-primary: linear-gradient(135deg, #22c55e 0%, #10b981 50%, #059669 100%);
+  --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  --gradient-warm: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.12);
+}
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-dark-900 dark:bg-dark-950 dark:text-dark-100 font-sans antialiased;
+    background-color: #f8fafc;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .dark body,
+  body.dark-mode {
+    background-color: #030712;
+  }
+
+  * {
+    @apply border-border;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(34, 197, 94, 0.3) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(34, 197, 94, 0.3);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(34, 197, 94, 0.5);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: rgba(34, 197, 94, 0.4);
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: rgba(34, 197, 94, 0.6);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-xl border shadow-lg;
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(226, 232, 240, 0.8);
+  }
+
+  .dark .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300;
+  }
+
+  .glass-card-hover:hover {
+    @apply shadow-xl;
+    transform: translateY(-2px);
+    border-color: rgba(34, 197, 94, 0.3);
+  }
+
+  .dark .glass-card-hover:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(34, 197, 94, 0.4);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .glass-sidebar {
+    @apply backdrop-blur-2xl;
+    background: rgba(255, 255, 255, 0.95);
+    border-right: 1px solid rgba(226, 232, 240, 0.8);
+  }
+
+  .dark .glass-sidebar {
+    background: rgba(15, 23, 42, 0.85);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #22c55e 0%, #10b981 50%, #059669 100%);
+  }
+
+  .gradient-btn {
+    @apply text-white font-medium rounded-xl transition-all duration-300;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+  }
+
+  .gradient-btn:hover {
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.45);
+    transform: translateY(-1px);
+  }
+
+  .gradient-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(34, 197, 94, 0.3);
+  }
+
+  .progress-bar {
+    @apply rounded-full overflow-hidden;
+    background: rgba(34, 197, 94, 0.1);
+  }
+
+  .progress-bar-fill {
+    @apply h-full rounded-full transition-all duration-700 ease-out;
+    background: linear-gradient(90deg, #22c55e, #10b981);
+  }
+
+  .progress-bar-accent .progress-bar-fill {
+    background: linear-gradient(90deg, #10b981, #34d399);
+  }
+
+  .progress-bar-warm .progress-bar-fill {
+    background: linear-gradient(90deg, #f59e0b, #ef4444);
+  }
+
+  .chart-container {
+    @apply w-full rounded-xl p-4;
+  }
+
+  .chart-container .recharts-cartesian-axis-tick-value {
+    @apply fill-dark-400 dark:fill-dark-400 text-xs;
+  }
+
+  .chart-container .recharts-tooltip-wrapper {
+    @apply outline-none;
+  }
+
+  .input-focus {
+    @apply transition-all duration-200;
+  }
+
+  .input-focus:focus {
+    @apply ring-2 ring-primary-500/50 border-primary-500;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+  }
+
+  .nav-link {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-xl text-dark-500 dark:text-dark-400 transition-all duration-200;
+  }
+
+  .nav-link:hover {
+    @apply bg-primary-50 dark:bg-white/5 text-primary-600 dark:text-primary-400;
+  }
+
+  .nav-link.active {
+    @apply text-white font-medium;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+  }
+
+  .page-container {
+    @apply min-h-screen p-4 sm:p-6 lg:p-8;
+  }
+
+  .section-title {
+    @apply text-2xl font-bold text-dark-900 dark:text-white mb-6;
+  }
+
+  .stat-value {
+    @apply text-3xl font-bold gradient-text;
+  }
+
+  .stat-label {
+    @apply text-sm text-dark-500 dark:text-dark-400 mt-1;
+  }
+
+  .skeleton-shimmer {
+    @apply relative overflow-hidden;
+    background: linear-gradient(90deg, rgba(148, 163, 184, 0.1), rgba(148, 163, 184, 0.2), rgba(148, 163, 184, 0.1));
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite linear;
+  }
+
+  .tab-btn {
+    @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-dark-500 dark:text-dark-400;
+  }
+
+  .tab-btn.active {
+    @apply text-white;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  }
+
+  .tab-btn:not(.active):hover {
+    @apply bg-primary-50 dark:bg-white/5 text-primary-600 dark:text-primary-400;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .border-border {
+    border-color: var(--color-border-light);
+  }
+
+  .dark .border-border {
+    border-color: var(--color-border-dark);
+  }
+}
