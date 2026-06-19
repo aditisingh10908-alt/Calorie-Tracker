@@ -11,6 +11,9 @@ Calorie Tracker is a full-stack health and fitness web application designed to h
 The application provides a complete fitness dashboard where users can track daily nutrition, monitor progress, manage health goals, and receive smart recommendations based on their personal profile.
 
 ---
+## Dashboard Preview
+
+![Dashboard](assets/dashboard.png)
 
 ## Features
 
