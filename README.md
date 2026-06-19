@@ -182,11 +182,11 @@ Based on body weight and activity level
 
 ## Developed By
 
-Aditi Singh
+Aditi kumari
 
-B.Tech – Computer Science Engineering
+Bachelors of Computer Application 
 
-SRM Institute of Science and Technology
+Patna Womens College
 
 ---
 
